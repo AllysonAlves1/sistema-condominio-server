@@ -11,7 +11,7 @@ import {
 import { ApartamentoService } from './apartamento.service';
 import { ApartamentoDTO } from './apartamento.dto';
 
-@Controller('condominio')
+@Controller('apartamento')
 export class ApartamentoController {
   constructor(private apartamentoService: ApartamentoService) {}
 

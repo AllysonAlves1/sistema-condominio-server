@@ -20,7 +20,7 @@ import { Pessoa } from 'src/pessoa/pessoa.entity';
 export class UsuarioController {
   constructor(
     private usuarioService: UsuarioService,
-    private pessoaService: PessoaService,
+    // private pessoaService: PessoaService,
   ) {}
 
   @Get()
@@ -60,13 +60,14 @@ export class UsuarioController {
     return req.user;
   }
 
-  @Get(':id/pessoas')
-  async getPessoasDoUsuario(@Param('id') id: number): Promise<Pessoa[]> {
-    return this.usuarioService.getPessoasDoUsuario(id);
-  }
+  //@Get(':id/pessoas')
+  //async getPessoasDoUsuario(@Param('id') id: number): Promise<Pessoa[]> {
+    //return this.usuarioService.getPessoasDoUsuario(id);
+  //}
 
-  @Get('pessoas')
-  async getAllPessoas(): Promise<Pessoa[]> {
-    return this.pessoaService.findAll();
-  }
+//   @Get('pessoas')
+//   async getAllPessoas(): Promise<Pessoa[]> {
+//     return this.pessoaService.findAll();
+//   }
+//
 }

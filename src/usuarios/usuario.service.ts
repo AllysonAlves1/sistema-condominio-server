@@ -11,7 +11,7 @@ export class UsuarioService {
     @InjectRepository(Usuario)
     private usuarioRepository: Repository<Usuario>,
     private jwtService: JwtService
-  ) {}
+  ) { }
 
   async findAll(): Promise<Usuario[]> {
     const usuario = await this.usuarioRepository.find();
@@ -19,7 +19,7 @@ export class UsuarioService {
   }
 
   async findOne(email: string): Promise<Usuario> {
-    const options : FindOneOptions<Usuario> = {
+    const options: FindOneOptions<Usuario> = {
       where: { email },
     };
 
@@ -27,13 +27,13 @@ export class UsuarioService {
     return usuario;
   }
 
-  async findOneByEmail(email: string): Promise<Usuario | undefined>{
-    return this.usuarioRepository.findOneBy({email})
+  async findOneByEmail(email: string): Promise<Usuario | undefined> {
+    return this.usuarioRepository.findOneBy({ email })
   }
 
   async create(usuarioDTO: UsuarioDTO): Promise<Usuario> {
     const usuario = new Usuario();
-  
+
     usuario.nome = usuarioDTO.nome;
     usuario.email = usuarioDTO.email;
     usuario.senha = usuarioDTO.senha;
@@ -83,18 +83,5 @@ export class UsuarioService {
     return {
       access_token: this.jwtService.sign(payload),
     };
-  }
-  
-  async getPessoasDoUsuario(usuarioId: number) {
-    const usuario = await this.usuarioRepository.find({where : {id : usuarioId}},
-       relations: ['apartamentos', 'apartamentos.pessoas']);
-
-    if (!usuario) {
-      throw new Error('Usuário não encontrado.');
-    }
-
-    const pessoas = usuario.apartamentos.flatMap(apartamento => apartamento.pessoas);
-
-    return pessoas;
   }
 }
