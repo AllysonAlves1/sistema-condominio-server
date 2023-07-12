@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
-export class CondominioDTO {
+export class ApartamentoDTO {
   id: number;
   bloco: string;
   apartamento: string;
-  nome: string;
+  condominioId: number;
 }

@@ -28,7 +28,7 @@ export class PessoaService {
     pessoa.cpf = pessoaDTO.cpf;
     pessoa.telefone = pessoaDTO.telefone;
     pessoa.proprietario = pessoaDTO.proprietario;
-    pessoa.condominioId = pessoaDTO.condominioId;
+    pessoa.apartamentoId = pessoaDTO.apartamentoId;
     pessoa.descricao = pessoaDTO.descricao;
     pessoa.automovel = pessoaDTO.automovel;
     pessoa.automovelplaca = pessoaDTO.automovelplaca;
@@ -52,7 +52,7 @@ export class PessoaService {
     pessoa.cpf = pessoaDTO.cpf;
     pessoa.telefone = pessoaDTO.telefone;
     pessoa.proprietario = pessoaDTO.proprietario;
-    pessoa.condominioId = pessoaDTO.condominioId;
+    pessoa.apartamentoId = pessoaDTO.apartamentoId;
     pessoa.descricao = pessoaDTO.descricao;
     pessoa.automovel = pessoaDTO.automovel;
     pessoa.automovelplaca = pessoaDTO.automovelplaca;

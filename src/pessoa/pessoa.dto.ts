@@ -5,7 +5,7 @@ export class PessoaDTO {
   cpf: string;
   telefone: string;
   proprietario: boolean;
-  condominioId: number;
+  apartamentoId: number;
   descricao: string;
   automovel: string;
   automovelplaca: string;

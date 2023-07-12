@@ -1,4 +1,5 @@
 /* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/adjacent-overload-signatures */
 import {
   Body,
   Controller,
@@ -14,11 +15,13 @@ import { UsuarioService } from './usuario.service';
 import { UsuarioDTO } from './usuario.dto';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { LocalAuthGuard } from './local-auth.guard';
+import { PessoaService } from 'src/pessoa/pessoa.service';
+import { Pessoa } from 'src/pessoa/pessoa.entity';
 
 @Controller('usuario')
 export class UsuarioController {
   constructor(
-    private usuarioService: UsuarioService)
+    private usuarioService: UsuarioService, private pessoaService: PessoaService)
     {}
 
   @Get()
@@ -57,4 +60,15 @@ export class UsuarioController {
   getProfile(@Request() req) {
     return req.user;
   }
+  
+  @Get(':id/pessoas')
+  async getPessoasDoUsuario(@Param('id') id: number): Promise<Pessoa[]> {
+    return this.usuarioService.getPessoasDoUsuario(id);
+  }
+
+  @Get('pessoas')
+  async getAllPessoas(): Promise<Pessoa[]> {
+    return this.pessoaService.findAll();
+  }
+  
 }

@@ -85,4 +85,17 @@ export class UsuarioService {
       access_token: this.jwtService.sign(payload),
     };
   }
+  
+  async getPessoasDoUsuario(usuarioId: number) {
+    const usuario = await this.usuarioRepository.find({where : {id : usuarioId}},
+       relations: ['apartamentos', 'apartamentos.pessoas']);
+
+    if (!usuario) {
+      throw new Error('Usuário não encontrado.');
+    }
+
+    const pessoas = usuario.apartamentos.flatMap(apartamento => apartamento.pessoas);
+
+    return pessoas;
+  }
 }

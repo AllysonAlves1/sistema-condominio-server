@@ -1,8 +1,10 @@
 /* eslint-disable prettier/prettier */
+import { Apartamento } from 'src/apartamento/apartamento.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
+  ManyToOne,
 } from 'typeorm';
 
 @Entity()
@@ -23,15 +25,15 @@ export class Pessoa {
   proprietario: boolean;
 
   @Column()
-  condominioId: number;
+  apartamentoId: number;
 
   @Column()
   descricao: string;
 
-  @Column()
+  @Column({ nullable: true })
   automovel: string;
 
-  @Column()
+  @Column({ nullable: true })
   automovelplaca: string;
 
   @Column({
@@ -46,4 +48,6 @@ export class Pessoa {
   })
   saida: Date | null;
 
+  @ManyToOne(() => Apartamento, apartamento => apartamento.pessoas)
+  apartamento: Apartamento;
 }
