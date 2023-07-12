@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Apartamento {
+export class Acesso {
   @PrimaryGeneratedColumn()
   id: number;
 

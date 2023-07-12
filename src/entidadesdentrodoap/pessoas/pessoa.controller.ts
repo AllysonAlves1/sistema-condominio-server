@@ -11,7 +11,7 @@ import {
 import { PessoaService } from './pessoa.service';
 import { PessoaDTO } from './pessoa.dto';
 
-@Controller('Pessoa')
+@Controller('pessoa')
 export class PessoaController {
   constructor(private pessoaService: PessoaService) {}
 
