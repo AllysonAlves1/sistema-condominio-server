@@ -4,21 +4,15 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { ResidentesModule } from './residentes/residentes.module';
-import { Residente } from './residentes/residente.entity';
-import { Visitante } from './visitantes/visitante.entity';
-import { Condominio } from './condominios/condominio.entity';
-import { Automovel } from './automoveis/automovel.entity';
+import { PessoaModule } from './pessoa/pessoa.module';
+import { Pessoa } from './pessoa/pessoa.entity';
+import { Condominio } from './condominio/condominio.entity';
 import { Usuario } from './auth/usuarios/usuario.entity';
-import { VisitantesModule } from './visitantes/visitantes.module';
-import { CondominiosModule } from './condominios/condominios.module';
-import { AutomoveisModule } from './automoveis/automoveis.module';
-import { AuthService } from './auth/auth.service';
+import { CondominioModule } from './condominio/condominio.module';
 import { PassportModule } from '@nestjs/passport';
-import { JwtStrategy } from './auth/jwt/jwt.strategy';
-import { AuthModule } from './auth/auth.module';
+import { JwtStrategy } from './auth/usuarios/jwt.strategy';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './auth/constants';
+import { jwtConstants } from './auth/usuarios/constants';
 import { UsuarioModule } from './auth/usuarios/usuario.module';
 import { UsuarioService } from './auth/usuarios/usuario.service';
 
@@ -29,26 +23,23 @@ import { UsuarioService } from './auth/usuarios/usuario.service';
       type: 'mysql',
       host: 'localhost',
       port: 3306,
-      username: 'root',
-      password: 'root',
+      username: 'admin',
+      password: 'admin',
       database: 'nest',
-      entities: [Residente, Visitante, Condominio, Automovel, Usuario],
+      entities: [Pessoa, Usuario, Condominio],
       synchronize: true,
       logging: true,
     }),
-    ResidentesModule,
-    VisitantesModule,
-    CondominiosModule,
-    AutomoveisModule,
+    PessoaModule,
+    CondominioModule,
     UsuarioModule,
     PassportModule,
-    AuthModule,
     JwtModule.register({
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '60s' },
     })
   ],
   controllers: [AppController],
-  providers: [AppService, AuthService, JwtStrategy, UsuarioService],
+  providers: [AppService, JwtStrategy, UsuarioService],
 })
 export class AppModule {}

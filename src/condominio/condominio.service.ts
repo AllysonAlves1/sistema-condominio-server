@@ -6,47 +6,48 @@ import { Condominio } from './condominio.entity';
 import { CondominioDTO } from './condominio.dto';
 
 @Injectable()
-export class CondominiosService {
+export class CondominioService {
   constructor(
     @InjectRepository(Condominio)
-    private condominiosRepository: Repository<Condominio>,
+    private condominioRepository: Repository<Condominio>,
   ) {}
 
   async findAll(): Promise<Condominio[]> {
-    return this.condominiosRepository.find();
+    return this.condominioRepository.find();
   }
 
   async findOne(id: number): Promise<Condominio | null> {
-    return this.condominiosRepository.findOne({ where: { id } });
+    return this.condominioRepository.findOne({ where: { id } });
   }
 
   async create(condominioDTO: CondominioDTO): Promise<Condominio> {
     const condominio = new Condominio();
-    condominio.nome = condominioDTO.nome;
     condominio.bloco = condominioDTO.bloco;
     condominio.apartamento = condominioDTO.apartamento;
-    return this.condominiosRepository.save(condominio);
+    condominio.nome = condominioDTO.nome;
+    return this.condominioRepository.save(condominio);
   }
 
   async update(
     id: number,
     condominioDTO: CondominioDTO,
   ): Promise<Condominio | null> {
-    const condominio = await this.condominiosRepository.findOne({
+    const condominio = await this.condominioRepository.findOne({
       where: { id },
     });
     if (!condominio) {
       return null; // ou você pode lançar uma exceção adequada aqui
     }
 
-    condominio.nome = condominioDTO.nome;
     condominio.bloco = condominioDTO.bloco;
     condominio.apartamento = condominioDTO.apartamento;
+    condominio.nome = condominioDTO.nome;
 
-    return this.condominiosRepository.save(condominio);
+    return this.condominioRepository.save(condominio);
   }
 
   async remove(id: number): Promise<void> {
-    await this.condominiosRepository.delete(id);
+    await this.condominioRepository.delete(id);
   }
+
 }

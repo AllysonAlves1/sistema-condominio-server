@@ -12,15 +12,14 @@ import {
 } from '@nestjs/common';
 import { UsuarioService } from './usuario.service';
 import { UsuarioDTO } from './usuario.dto';
-import { JwtAuthGuard } from '../jwt/jwt-auth.guard';
-import { AuthService } from '../auth.service';
-import { LocalAuthGuard } from '../local-auth.guard';
+import { JwtAuthGuard } from './jwt-auth.guard';
+import { LocalAuthGuard } from './local-auth.guard';
 
 @Controller('usuario')
 export class UsuarioController {
   constructor(
-    private usuarioService: UsuarioService,
-    private authService: AuthService) {}
+    private usuarioService: UsuarioService)
+    {}
 
   @Get()
   async findAll() {
@@ -48,9 +47,9 @@ export class UsuarioController {
   }
 
   @UseGuards(LocalAuthGuard)
-  @Post('auth/login')
-  async login(@Request() usuarioDTO: UsuarioDTO) {
-    return this.authService.login(usuarioDTO);
+  @Post('login')
+  async login(@Request() req) {
+    return this.usuarioService.login(req.user);
   }
 
   @UseGuards(JwtAuthGuard)

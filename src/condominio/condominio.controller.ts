@@ -8,12 +8,12 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { CondominiosService } from './condominios.service';
+import { CondominioService } from './condominio.service';
 import { CondominioDTO } from './condominio.dto';
 
-@Controller('condominios')
-export class CondominiosController {
-  constructor(private condominioService: CondominiosService) {}
+@Controller('condominio')
+export class CondominioController {
+  constructor(private condominioService: CondominioService) {}
 
   @Get()
   async findAll() {
