@@ -20,24 +20,24 @@ export class PessoaController {
     return this.pessoaService.findAll();
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: number) {
-    return this.pessoaService.findOne(id);
+  @Get(':idPessoa')
+  async findOne(@Param('idPessoa') idPessoa: number) {
+    return this.pessoaService.findOne(idPessoa);
   }
 
-  @Post()
+  @Post('registrar')
   async create(@Body() pessoaDTO: PessoaDTO) {
     return this.pessoaService.create(pessoaDTO);
   }
 
-  @Put(':id')
-  async update(@Param('id') id: number, @Body() pessoaDTO: PessoaDTO) {
-    return this.pessoaService.update(id, pessoaDTO);
+  @Put(':idPessoa')
+  async update(@Param('idPessoa') idPessoa: number, @Body() pessoaDTO: PessoaDTO) {
+    return this.pessoaService.update(idPessoa, pessoaDTO);
   }
 
-  @Delete(':id')
-  async remove(@Param('id') id: number) {
-    return this.pessoaService.remove(id);
+  @Delete(':idPessoa')
+  async remove(@Param('idPessoa') idPessoa: number) {
+    return this.pessoaService.remove(idPessoa);
   }
 
 }

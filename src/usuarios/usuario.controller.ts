@@ -32,27 +32,30 @@ export class UsuarioController {
     return this.usuarioService.findOneByEmail(email);
   }
 
-  @Post()
+  //Salva um usuario no banco de dados
+  @Post('register')
   async create(@Body() usuarioDTO: UsuarioDTO) {
     return this.usuarioService.create(usuarioDTO);
   }
 
-  @Put(':id')
-  async update(@Param('id') id: number, @Body() usuarioDTO: UsuarioDTO) {
-    return this.usuarioService.update(id, usuarioDTO);
+  @Put(':idUsuario')
+  async update(@Param('idUsuario') idUsuario: number, @Body() usuarioDTO: UsuarioDTO) {
+    return this.usuarioService.update(idUsuario, usuarioDTO);
   }
 
-  @Delete(':id')
-  async remove(@Param('id') id: number) {
-    return this.usuarioService.remove(id);
+  @Delete(':idUsuario')
+  async remove(@Param('idUsuario') idUsuario: number) {
+    return this.usuarioService.remove(idUsuario);
   }
 
+  //Tentativa de login que recebe o token de autenticação JWT
   @UseGuards(LocalAuthGuard)
   @Post('login')
   async login(@Request() req) {
     return this.usuarioService.login(req.user);
   }
 
+  //Página protegida que só pode ser acessada com o token de autenticação JWT
   @UseGuards(JwtAuthGuard)
   @Get('profile')
   getProfile(@Request() req) {

@@ -23,13 +23,13 @@ import {
       return this.acessoveiculoService.findOne(idAcessoVeiculo);
     }
 
-    //salvar entrada de uma pessoa
+    //salvar entrada de um veiculo
     @Post('entradaveiculo')
     async entrada(): Promise<AcessoVeiculo> {
       return this.acessoveiculoService.entrada();
     }
 
-    //salvar a saída de uma pessoa
+    //salvar a saída de um veiculo
     @Post('saidaveiculo')
     async saida(): Promise<AcessoVeiculo> {
       return this.acessoveiculoService.saida();

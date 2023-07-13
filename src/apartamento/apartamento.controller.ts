@@ -20,23 +20,23 @@ export class ApartamentoController {
     return this.apartamentoService.findAll();
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: number) {
-    return this.apartamentoService.findOne(id);
+  @Get(':idApartamento')
+  async findOne(@Param('idApartamento') idApartamento: number) {
+    return this.apartamentoService.findOne(idApartamento);
   }
 
-  @Post()
+  @Post('registrar')
   async create(@Body() apartamentoDTO: ApartamentoDTO) {
     return this.apartamentoService.create(apartamentoDTO);
   }
 
-  @Put(':id')
-  async update(@Param('id') id: number, @Body() apartamentoDTO: ApartamentoDTO) {
-    return this.apartamentoService.update(id, apartamentoDTO);
+  @Put(':idApartamento')
+  async update(@Param('idApartamento') idApartamento: number, @Body() apartamentoDTO: ApartamentoDTO) {
+    return this.apartamentoService.update(idApartamento, apartamentoDTO);
   }
 
-  @Delete(':id')
-  async remove(@Param('id') id: number) {
-    return this.apartamentoService.remove(id);
+  @Delete(':idApartamento')
+  async remove(@Param('idApartamento') idApartamento: number) {
+    return this.apartamentoService.remove(idApartamento);
   }
 }

@@ -20,24 +20,24 @@ export class VeiculoController {
     return this.veiculoService.findAll();
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: number) {
-    return this.veiculoService.findOne(id);
+  @Get(':idVeiculo')
+  async findOne(@Param('idVeiculo') idVeiculo: number) {
+    return this.veiculoService.findOne(idVeiculo);
   }
 
-  @Post()
+  @Post('registrar')
   async create(@Body() veiculoDTO: VeiculoDTO) {
     return this.veiculoService.create(veiculoDTO);
   }
 
-  @Put(':id')
-  async update(@Param('id') id: number, @Body() veiculoDTO: VeiculoDTO) {
-    return this.veiculoService.update(id, veiculoDTO);
+  @Put(':idVeiculo')
+  async update(@Param('idVeiculo') idVeiculo: number, @Body() veiculoDTO: VeiculoDTO) {
+    return this.veiculoService.update(idVeiculo, veiculoDTO);
   }
 
-  @Delete(':id')
-  async remove(@Param('id') id: number) {
-    return this.veiculoService.remove(id);
+  @Delete(':idVeiculo')
+  async remove(@Param('idVeiculo') idVeiculo: number) {
+    return this.veiculoService.remove(idVeiculo);
   }
 
 }
