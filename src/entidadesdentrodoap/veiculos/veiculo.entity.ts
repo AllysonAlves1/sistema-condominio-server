@@ -1,53 +1,25 @@
 /* eslint-disable prettier/prettier */
-import { Apartamento } from 'src/apartamento/apartamento.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  ManyToOne,
 } from 'typeorm';
 
 @Entity()
-export class Pessoa {
+export class Veiculo {
   @PrimaryGeneratedColumn()
-  id: number;
+  idVeiculo: number;
 
   @Column()
-  nome: string;
+  tipo: string;
 
   @Column()
-  cpf: string;
+  marca: string;
 
   @Column()
-  telefone: string;
+  modelo: string;
 
   @Column()
-  proprietario: boolean;
+  placa: string;
 
-  @Column()
-  apartamentoId: number;
-
-  @Column()
-  descricao: string;
-
-  @Column({ nullable: true })
-  automovel: string;
-
-  @Column({ nullable: true })
-  automovelplaca: string;
-
-  @Column({
-    type: 'datetime',
-    nullable: true,
-  })
-  acesso: Date | null;
-
-  @Column({
-    type: 'datetime',
-    nullable: true,
-  })
-  saida: Date | null;
-
-  @ManyToOne(() => Apartamento, apartamento => apartamento.pessoas)
-  apartamento: Apartamento;
 }

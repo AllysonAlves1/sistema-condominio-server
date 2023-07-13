@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 export class ApartamentoDTO {
-  id: number;
+  idApartamento: number;
   bloco: string;
   apartamento: string;
   condominioId: number;

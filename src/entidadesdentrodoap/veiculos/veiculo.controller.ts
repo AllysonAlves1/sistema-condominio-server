@@ -8,45 +8,36 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { PessoaService } from './pessoa.service';
-import { PessoaDTO } from './pessoa.dto';
+import { VeiculoService } from './veiculo.service';
+import { VeiculoDTO } from './veiculo.dto';
 
-@Controller('pessoa')
-export class PessoaController {
-  constructor(private pessoaService: PessoaService) {}
+@Controller('veiculo')
+export class VeiculoController {
+  constructor(private veiculoService: VeiculoService) {}
 
   @Get()
   async findAll() {
-    return this.pessoaService.findAll();
+    return this.veiculoService.findAll();
   }
 
   @Get(':id')
   async findOne(@Param('id') id: number) {
-    return this.pessoaService.findOne(id);
+    return this.veiculoService.findOne(id);
   }
 
   @Post()
-  async create(@Body() pessoaDTO: PessoaDTO) {
-    return this.pessoaService.create(pessoaDTO);
+  async create(@Body() veiculoDTO: VeiculoDTO) {
+    return this.veiculoService.create(veiculoDTO);
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body() pessoaDTO: PessoaDTO) {
-    return this.pessoaService.update(id, pessoaDTO);
+  async update(@Param('id') id: number, @Body() veiculoDTO: VeiculoDTO) {
+    return this.veiculoService.update(id, veiculoDTO);
   }
 
   @Delete(':id')
   async remove(@Param('id') id: number) {
-    return this.pessoaService.remove(id);
+    return this.veiculoService.remove(id);
   }
 
-  @Put(':id/acesso')
-  async updateAcesso(@Param('id') id: number) {
-    return this.pessoaService.updateAcesso(id);
-  }
-
-  @Put(':id/saida')
-  async updateSaida(@Param('id') id: number) {
-    return this.pessoaService.updateSaida(id);
-  }
 }

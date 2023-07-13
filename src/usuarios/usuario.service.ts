@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOneOptions, Repository } from 'typeorm';
@@ -41,16 +43,16 @@ export class UsuarioService {
     return this.usuarioRepository.save(usuario);
   }
 
-  async update(id: number, usuarioDTO: UsuarioDTO): Promise<Usuario> {
+  async update(idUsuario: number, usuarioDTO: UsuarioDTO): Promise<Usuario> {
     const usuario = await this.usuarioRepository.findOne({
-      where: { id },
+      where: { idUsuario },
     });
 
     if (!usuario) {
       throw new NotFoundException('Usuário não encontrado');
     }
 
-    usuario.id = usuarioDTO.id;
+    usuario.idUsuario = usuarioDTO.idUsuario;
     usuario.nome = usuarioDTO.nome;
     usuario.email = usuarioDTO.email;
     usuario.senha = usuarioDTO.senha;
@@ -58,8 +60,8 @@ export class UsuarioService {
     return this.usuarioRepository.save(usuario);
   }
 
-  async remove(id: number): Promise<void> {
-    const deleteResult = await this.usuarioRepository.delete(id);
+  async remove(idUsuario: number): Promise<void> {
+    const deleteResult = await this.usuarioRepository.delete(idUsuario);
 
     if (deleteResult.affected === 0) {
       throw new NotFoundException('Usuário não encontrado');

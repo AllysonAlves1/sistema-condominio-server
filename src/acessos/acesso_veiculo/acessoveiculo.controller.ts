@@ -1,41 +1,42 @@
+/* eslint-disable prettier/prettier */
 import {
-    Body,
     Controller,
     Get,
     Post,
-    Put,
     Param,
     Delete,
   } from '@nestjs/common';
-  import { ApartamentoService } from './apartamento.service';
-  import { ApartamentoDTO } from './apartamento.dto';
+  import { AcessoVeiculoService } from './acessoveiculo.service';
+  import { AcessoVeiculo } from './acessoveiculo.entity';
   
-  @Controller('apartamento')
-  export class ApartamentoController {
-    constructor(private apartamentoService: ApartamentoService) {}
+  @Controller('acessoveiculo')
+  export class AcessoVeiculoController {
+    constructor(private acessoveiculoService: AcessoVeiculoService) {}
   
     @Get()
     async findAll() {
-      return this.apartamentoService.findAll();
+      return this.acessoveiculoService.findAll();
     }
   
-    @Get(':id')
-    async findOne(@Param('id') id: number) {
-      return this.apartamentoService.findOne(id);
+    @Get(':idAcessoVeiculo')
+    async findOne(@Param('idAcessoVeiculo') idAcessoVeiculo: number) {
+      return this.acessoveiculoService.findOne(idAcessoVeiculo);
+    }
+
+    //salvar entrada de uma pessoa
+    @Post('entradaveiculo')
+    async entrada(): Promise<AcessoVeiculo> {
+      return this.acessoveiculoService.entrada();
+    }
+
+    //salvar a saída de uma pessoa
+    @Post('saidaveiculo')
+    async saida(): Promise<AcessoVeiculo> {
+      return this.acessoveiculoService.saida();
     }
   
-    @Post()
-    async create(@Body() apartamentoDTO: ApartamentoDTO) {
-      return this.apartamentoService.create(apartamentoDTO);
-    }
-  
-    @Put(':id')
-    async update(@Param('id') id: number, @Body() apartamentoDTO: ApartamentoDTO) {
-      return this.apartamentoService.update(id, apartamentoDTO);
-    }
-  
-    @Delete(':id')
-    async remove(@Param('id') id: number) {
-      return this.apartamentoService.remove(id);
+    @Delete(':idAcessoVeiculo')
+    async remove(@Param('idAcessoVeiculo') idAcessoVeiculo: number) {
+      return this.acessoveiculoService.remove(idAcessoVeiculo);
     }
   }

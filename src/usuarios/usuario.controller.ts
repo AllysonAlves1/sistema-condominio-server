@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Body,
   Controller,
@@ -13,8 +14,6 @@ import { UsuarioService } from './usuario.service';
 import { UsuarioDTO } from './usuario.dto';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { LocalAuthGuard } from './auth/local-auth.guard';
-import { PessoaService } from 'src/pessoa/pessoa.service';
-import { Pessoa } from 'src/pessoa/pessoa.entity';
 
 @Controller('usuario')
 export class UsuarioController {
@@ -60,14 +59,4 @@ export class UsuarioController {
     return req.user;
   }
 
-  //@Get(':id/pessoas')
-  //async getPessoasDoUsuario(@Param('id') id: number): Promise<Pessoa[]> {
-    //return this.usuarioService.getPessoasDoUsuario(id);
-  //}
-
-//   @Get('pessoas')
-//   async getAllPessoas(): Promise<Pessoa[]> {
-//     return this.pessoaService.findAll();
-//   }
-//
 }

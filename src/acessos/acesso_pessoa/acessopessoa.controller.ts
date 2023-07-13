@@ -1,41 +1,42 @@
+/* eslint-disable prettier/prettier */
 import {
-    Body,
     Controller,
     Get,
     Post,
-    Put,
     Param,
     Delete,
   } from '@nestjs/common';
-  import { ApartamentoService } from './apartamento.service';
-  import { ApartamentoDTO } from './apartamento.dto';
+  import { AcessoPessoaService } from './acessopessoa.service';
+  import { AcessoPessoa } from './acessopessoa.entity';
   
-  @Controller('apartamento')
-  export class ApartamentoController {
-    constructor(private apartamentoService: ApartamentoService) {}
+  @Controller('acessopessoa')
+  export class AcessoPessoaController {
+    constructor(private acessopessoaService: AcessoPessoaService) {}
   
     @Get()
     async findAll() {
-      return this.apartamentoService.findAll();
+      return this.acessopessoaService.findAll();
     }
   
-    @Get(':id')
-    async findOne(@Param('id') id: number) {
-      return this.apartamentoService.findOne(id);
+    @Get(':idAcessoPessoa')
+    async findOne(@Param('idAcessoPessoa') idAcessoPessoa: number) {
+      return this.acessopessoaService.findOne(idAcessoPessoa);
+    }
+
+    //salvar entrada de uma pessoa
+    @Post('entradapessoa')
+    async entrada(): Promise<AcessoPessoa> {
+      return this.acessopessoaService.entrada();
+    }
+
+    //salvar a saída de uma pessoa
+    @Post('saidapessoa')
+    async saida(): Promise<AcessoPessoa> {
+      return this.acessopessoaService.saida();
     }
   
-    @Post()
-    async create(@Body() apartamentoDTO: ApartamentoDTO) {
-      return this.apartamentoService.create(apartamentoDTO);
-    }
-  
-    @Put(':id')
-    async update(@Param('id') id: number, @Body() apartamentoDTO: ApartamentoDTO) {
-      return this.apartamentoService.update(id, apartamentoDTO);
-    }
-  
-    @Delete(':id')
-    async remove(@Param('id') id: number) {
-      return this.apartamentoService.remove(id);
+    @Delete(':idAcessoPessoa')
+    async remove(@Param('idAcessoPessoa') idAcessoPessoa: number) {
+      return this.acessopessoaService.remove(idAcessoPessoa);
     }
   }

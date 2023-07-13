@@ -1,5 +1,6 @@
+/* eslint-disable prettier/prettier */
 export class UsuarioDTO {
-  id: number;
+  idUsuario: number;
   nome: string;
   email: string;
   senha: string;

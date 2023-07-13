@@ -2,95 +2,58 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Pessoa } from './pessoa.entity';
-import { PessoaDTO } from './pessoa.dto';
+import { Veiculo } from './veiculo.entity';
+import { VeiculoDTO } from './veiculo.dto';
 
 @Injectable()
-export class PessoaService {
+export class VeiculoService {
   constructor(
-    @InjectRepository(Pessoa)
-    private pessoaRepository: Repository<Pessoa>,
+    @InjectRepository(Veiculo)
+    private veiculoRepository: Repository<Veiculo>,
   ) {}
 
-  async findAll(): Promise<Pessoa[]> {
-    const pessoas = await this.pessoaRepository.find();
-    return pessoas;
+  async findAll(): Promise<Veiculo[]> {
+    const veiculos = await this.veiculoRepository.find();
+    return veiculos;
   }
 
-  async findOne(id: number): Promise<Pessoa | undefined> {
-    return this.pessoaRepository.findOne({ where: { id } });
+  async findOne(idVeiculo: number): Promise<Veiculo | undefined> {
+    return this.veiculoRepository.findOne({ where: { idVeiculo } });
   }
 
-  async create(pessoaDTO: PessoaDTO): Promise<Pessoa> {
-    const pessoa = new Pessoa();
-    pessoa.nome = pessoaDTO.nome;
-    pessoa.telefone = pessoaDTO.telefone;
-    pessoa.cpf = pessoaDTO.cpf;
-    pessoa.telefone = pessoaDTO.telefone;
-    pessoa.proprietario = pessoaDTO.proprietario;
-    pessoa.apartamentoId = pessoaDTO.apartamentoId;
-    pessoa.descricao = pessoaDTO.descricao;
-    pessoa.automovel = pessoaDTO.automovel;
-    pessoa.automovelplaca = pessoaDTO.automovelplaca;
-    pessoa.acesso = pessoa.acesso = new Date();
-    pessoa.saida = new Date();
+  async create(veiculoDTO: VeiculoDTO): Promise<Veiculo> {
+    const veiculo = new Veiculo();
+    veiculo.tipo = veiculoDTO.tipo;
+    veiculo.marca = veiculoDTO.marca;
+    veiculo.modelo = veiculoDTO.modelo;
+    veiculo.placa = veiculoDTO.placa;
 
-    return this.pessoaRepository.save(pessoa);
+    return this.veiculoRepository.save(veiculo);
   }
 
-  async update(id: number, pessoaDTO: PessoaDTO): Promise<Pessoa> {
-    const pessoa = await this.pessoaRepository.findOne({
-      where: { id },
+  async update(idVeiculo: number, veiculoDTO: VeiculoDTO): Promise<Veiculo> {
+    const veiculo = await this.veiculoRepository.findOne({
+      where: { idVeiculo },
     });
 
-    if (!pessoa) {
-      throw new NotFoundException('Pessoa not found');
+    if (!veiculo) {
+      throw new NotFoundException('Veiculo not found');
     }
 
-    pessoa.nome = pessoaDTO.nome;
-    pessoa.telefone = pessoaDTO.telefone;
-    pessoa.cpf = pessoaDTO.cpf;
-    pessoa.telefone = pessoaDTO.telefone;
-    pessoa.proprietario = pessoaDTO.proprietario;
-    pessoa.apartamentoId = pessoaDTO.apartamentoId;
-    pessoa.descricao = pessoaDTO.descricao;
-    pessoa.automovel = pessoaDTO.automovel;
-    pessoa.automovelplaca = pessoaDTO.automovelplaca;
+    veiculo.tipo = veiculoDTO.tipo;
+    veiculo.marca = veiculoDTO.marca;
+    veiculo.modelo = veiculoDTO.modelo;
+    veiculo.placa = veiculoDTO.placa;
 
-    return this.pessoaRepository.save(pessoa);
+    return this.veiculoRepository.save(veiculo);
   }
 
-  async remove(id: number): Promise<void> {
-    const deleteResult = await this.pessoaRepository.delete(id);
+  async remove(idVeiculo: number): Promise<void> {
+    const deleteResult = await this.veiculoRepository.delete(idVeiculo);
 
     if (deleteResult.affected === 0) {
-      throw new NotFoundException('Pessoa not found');
+      throw new NotFoundException('Veiculo not found');
     }
   }
 
-  async updateAcesso(id: number): Promise<Pessoa> {
-    const pessoa = await this.pessoaRepository.findOne({
-      where: { id },
-    });
-    if (!pessoa) {
-      // Lançar um erro ou retornar null/undefined caso o pessoa não exista
-    }
-
-    pessoa.acesso = new Date(); // Define a data e hora atual para o acesso
-
-    return this.pessoaRepository.save(pessoa);
-  }
-
-  async updateSaida(id: number): Promise<Pessoa> {
-    const pessoa = await this.pessoaRepository.findOne({
-      where: { id },
-    });
-    if (!pessoa) {
-      // Lançar um erro ou retornar null/undefined caso o pessoa não exista
-    }
-
-    pessoa.saida = new Date(); // Define a data e hora atual para a saída
-
-    return this.pessoaRepository.save(pessoa);
-  }
 }

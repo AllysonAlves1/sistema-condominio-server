@@ -16,24 +16,23 @@ export class ApartamentoService {
     return this.apartamentoRepository.find();
   }
 
-  async findOne(id: number): Promise<Apartamento | null> {
-    return this.apartamentoRepository.findOne({ where: { id } });
+  async findOne(idApartamento: number): Promise<Apartamento | null> {
+    return this.apartamentoRepository.findOne({ where: { idApartamento } });
   }
 
   async create(apartamentoDTO: ApartamentoDTO): Promise<Apartamento> {
     const apartamento = new Apartamento();
     apartamento.bloco = apartamentoDTO.bloco;
     apartamento.apartamento = apartamentoDTO.apartamento;
-    apartamento.condominioId = apartamentoDTO.condominioId;
     return this.apartamentoRepository.save(apartamento);
   }
 
   async update(
-    id: number,
+    idApartamento: number,
     apartamentoDTO: ApartamentoDTO,
   ): Promise<Apartamento | null> {
     const apartamento = await this.apartamentoRepository.findOne({
-      where: { id },
+      where: { idApartamento },
     });
     if (!apartamento) {
       return null; // ou você pode lançar uma exceção adequada aqui
@@ -41,13 +40,12 @@ export class ApartamentoService {
 
     apartamento.bloco = apartamentoDTO.bloco;
     apartamento.apartamento = apartamentoDTO.apartamento;
-    apartamento.condominioId = apartamentoDTO.condominioId;
 
     return this.apartamentoRepository.save(apartamento);
   }
 
-  async remove(id: number): Promise<void> {
-    await this.apartamentoRepository.delete(id);
+  async remove(idApartamento: number): Promise<void> {
+    await this.apartamentoRepository.delete(idApartamento);
   }
 
 }

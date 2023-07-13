@@ -1,32 +1,19 @@
 /* eslint-disable prettier/prettier */
-import { Usuario } from 'src/usuarios/usuario.entity';
-import { Pessoa } from 'src/pessoa/pessoa.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  ManyToOne,
-  OneToMany,
 } from 'typeorm';
 
 @Entity()
-export class Acesso {
+export class AcessoVeiculo {
   @PrimaryGeneratedColumn()
-  id: number;
+  idAcessoVeiculo: number;
 
   @Column()
-  bloco: string;
+  entradaVeiculo: Date;
 
   @Column()
-  apartamento: string;
-
-  @Column()
-  condominioId: number;
-
-  @ManyToOne(() => Usuario, usuario => usuario.apartamentos)
-  condominio: Usuario;
-
-  @OneToMany(() => Pessoa, pessoa => pessoa.apartamentoId)
-  pessoas: Pessoa[];
+  saidaVeiculo: Date;
 
 }

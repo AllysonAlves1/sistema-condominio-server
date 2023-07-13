@@ -1,10 +1,10 @@
-import { Apartamento } from 'src/apartamento/apartamento.entity';
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+/* eslint-disable prettier/prettier */
+import { Entity, Column, PrimaryGeneratedColumn} from 'typeorm';
 
 @Entity()
 export class Usuario {
   @PrimaryGeneratedColumn()
-  id: number;
+  idUsuario: number;
 
   @Column()
   nome: string;
@@ -15,6 +15,4 @@ export class Usuario {
   @Column()
   senha: string;
 
-  @OneToMany(() => Apartamento, (apartamento) => apartamento.condominioId)
-  apartamentos: Apartamento[];
 }

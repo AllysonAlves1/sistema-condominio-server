@@ -4,8 +4,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { PessoaModule } from './pessoa/pessoa.module';
-import { Pessoa } from './pessoa/pessoa.entity';
+import { PessoaModule } from './entidadesdentrodoap/pessoas/pessoa.module';
+import { Pessoa } from './entidadesdentrodoap/pessoas/pessoa.entity';
 import { Apartamento } from './apartamento/apartamento.entity';
 import { Usuario } from './usuarios/usuario.entity';
 import { ApartamentoModule } from './apartamento/apartamento.module';
@@ -15,6 +15,9 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './usuarios/auth/constants';
 import { UsuarioModule } from './usuarios/usuario.module';
 import { UsuarioService } from './usuarios/usuario.service';
+import { Veiculo } from './entidadesdentrodoap/veiculos/veiculo.entity';
+import { AcessoPessoa } from './acessos/acesso_pessoa/acessopessoa.entity';
+import { AcessoVeiculo } from './acessos/acesso_veiculo/acessoveiculo.entity';
 
 @Module({
   imports: [
@@ -23,10 +26,10 @@ import { UsuarioService } from './usuarios/usuario.service';
       type: 'mysql',
       host: 'localhost',
       port: 3306,
-      username: 'aluno',
-      password: 'ifpe2023',
+      username: 'admin',
+      password: 'admin',
       database: 'nest',
-      entities: [Pessoa, Usuario, Apartamento],
+      entities: [Pessoa, Usuario, Apartamento, Veiculo, AcessoPessoa, AcessoVeiculo],
       synchronize: true,
       logging: true,
     }),

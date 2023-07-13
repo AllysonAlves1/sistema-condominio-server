@@ -1,13 +1,13 @@
 /* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Pessoa } from './pessoa.entity';
-import { PessoaService } from './pessoa.service';
-import { PessoaController } from './pessoa.controller';
+import { Veiculo } from './veiculo.entity';
+import { VeiculoService } from './veiculo.service';
+import { VeiculoController } from './veiculo.controller';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Pessoa])],
-  providers: [PessoaService],
-  controllers: [PessoaController],
+  imports: [TypeOrmModule.forFeature([Veiculo])],
+  providers: [VeiculoService],
+  controllers: [VeiculoController],
 })
-export class PessoaModule {}
+export class VeiculoModule {}

@@ -1,8 +1,7 @@
 /* eslint-disable prettier/prettier */
-export class AcessoDTO {
-    id: number;
-    acesso: Date;
-    saida: Date;
-    
+export class AcessoPessoaDTO {
+    idAcessoPessoa: number;
+    entradaPessoa: Date;
+    saidaPessoa: Date;  
   }
   

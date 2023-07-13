@@ -40,13 +40,4 @@ export class PessoaController {
     return this.pessoaService.remove(id);
   }
 
-  @Put(':id/acesso')
-  async updateAcesso(@Param('id') id: number) {
-    return this.pessoaService.updateAcesso(id);
-  }
-
-  @Put(':id/saida')
-  async updateSaida(@Param('id') id: number) {
-    return this.pessoaService.updateSaida(id);
-  }
 }

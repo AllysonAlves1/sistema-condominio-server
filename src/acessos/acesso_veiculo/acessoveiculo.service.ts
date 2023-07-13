@@ -2,52 +2,37 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Apartamento } from './apartamento.entity';
-import { ApartamentoDTO } from './apartamento.dto';
+import { AcessoVeiculo } from './acessoveiculo.entity';
 
 @Injectable()
-export class ApartamentoService {
+export class AcessoVeiculoService {
   constructor(
-    @InjectRepository(Apartamento)
-    private apartamentoRepository: Repository<Apartamento>,
+    @InjectRepository(AcessoVeiculo)
+    private acessoveiculoRepository: Repository<AcessoVeiculo>,
   ) {}
 
-  async findAll(): Promise<Apartamento[]> {
-    return this.apartamentoRepository.find();
+  async findAll(): Promise<AcessoVeiculo[]> {
+    return this.acessoveiculoRepository.find();
   }
 
-  async findOne(id: number): Promise<Apartamento | null> {
-    return this.apartamentoRepository.findOne({ where: { id } });
+  async findOne(idAcessoVeiculo: number): Promise<AcessoVeiculo | null> {
+    return this.acessoveiculoRepository.findOne({ where: { idAcessoVeiculo } });
   }
 
-  async create(apartamentoDTO: ApartamentoDTO): Promise<Apartamento> {
-    const apartamento = new Apartamento();
-    apartamento.bloco = apartamentoDTO.bloco;
-    apartamento.apartamento = apartamentoDTO.apartamento;
-    apartamento.condominioId = apartamentoDTO.condominioId;
-    return this.apartamentoRepository.save(apartamento);
+  async entrada(): Promise<AcessoVeiculo>{
+    const entradaveiculo = new AcessoVeiculo();
+    entradaveiculo.entradaVeiculo = new Date()
+    return this.acessoveiculoRepository.save(entradaveiculo)
   }
 
-  async update(
-    id: number,
-    apartamentoDTO: ApartamentoDTO,
-  ): Promise<Apartamento | null> {
-    const apartamento = await this.apartamentoRepository.findOne({
-      where: { id },
-    });
-    if (!apartamento) {
-      return null; // ou você pode lançar uma exceção adequada aqui
-    }
-
-    apartamento.bloco = apartamentoDTO.bloco;
-    apartamento.apartamento = apartamentoDTO.apartamento;
-    apartamento.condominioId = apartamentoDTO.condominioId;
-
-    return this.apartamentoRepository.save(apartamento);
+  async saida(): Promise<AcessoVeiculo>{
+    const saidaveiculo = new AcessoVeiculo();
+    saidaveiculo.saidaVeiculo = new Date()
+    return this.acessoveiculoRepository.save(saidaveiculo)
   }
 
-  async remove(id: number): Promise<void> {
-    await this.apartamentoRepository.delete(id);
+  async remove(idAcessoveiculo: number): Promise<void> {
+    await this.acessoveiculoRepository.delete(idAcessoveiculo);
   }
 
 }
