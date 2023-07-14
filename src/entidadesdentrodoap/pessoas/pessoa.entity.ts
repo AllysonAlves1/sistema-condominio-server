@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { AcessoPessoa } from 'src/acessos/acesso_pessoa/acessopessoa.entity';
 import { Apartamento } from 'src/apartamento/apartamento.entity';
 import {
@@ -31,14 +30,13 @@ export class Pessoa {
   @Column()
   proprietario: boolean;
 
-  @ManyToOne(() => Apartamento, apartamento => apartamento.pessoas)
+  @ManyToOne(() => Apartamento, (apartamento) => apartamento.pessoas)
   apartamento: Apartamento;
 
-  @OneToMany(() => Apartamento, apartamento => apartamento.proprietario)
+  @OneToMany(() => Apartamento, (apartamento) => apartamento.proprietario)
   apartamentosProprietario: Apartamento[];
 
-  @ManyToMany(() => AcessoPessoa, acessoPessoa => acessoPessoa.pessoas)
+  @ManyToMany(() => AcessoPessoa, (acessoPessoa) => acessoPessoa.pessoas)
   @JoinTable()
   acessosPessoa: AcessoPessoa[];
-
 }

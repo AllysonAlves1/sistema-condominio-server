@@ -26,11 +26,11 @@ import { VeiculoModule } from './entidadesdentrodoap/veiculos/veiculo.module';
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
-      type: 'mysql',
+      type: 'postgres',
       host: 'localhost',
-      port: 3306,
-      username: 'admin',
-      password: 'admin',
+      port: 5432,
+      username: 'allyson',
+      password: 'aly124578963',
       database: 'nest',
       entities: [Pessoa, Usuario, Apartamento, Veiculo, AcessoPessoa, AcessoVeiculo],
       synchronize: true,
