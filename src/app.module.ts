@@ -18,6 +18,9 @@ import { UsuarioService } from './usuarios/usuario.service';
 import { Veiculo } from './entidadesdentrodoap/veiculos/veiculo.entity';
 import { AcessoPessoa } from './acessos/acesso_pessoa/acessopessoa.entity';
 import { AcessoVeiculo } from './acessos/acesso_veiculo/acessoveiculo.entity';
+import { AcessoPessoaModule } from './acessos/acesso_pessoa/acessopessoa.module';
+import { AcessoVeiculoModule } from './acessos/acesso_veiculo/acessoveiculo.module';
+import { VeiculoModule } from './entidadesdentrodoap/veiculos/veiculo.module';
 
 @Module({
   imports: [
@@ -36,7 +39,10 @@ import { AcessoVeiculo } from './acessos/acesso_veiculo/acessoveiculo.entity';
     PessoaModule,
     ApartamentoModule,
     UsuarioModule,
+    VeiculoModule,
     PassportModule,
+    AcessoPessoaModule,
+    AcessoVeiculoModule,
     JwtModule.register({
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '60s' },

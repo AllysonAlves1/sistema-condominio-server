@@ -1,8 +1,10 @@
 /* eslint-disable prettier/prettier */
+import { Veiculo } from 'src/entidadesdentrodoap/veiculos/veiculo.entity';
 import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
+  ManyToMany,
 } from 'typeorm';
 
 @Entity()
@@ -15,5 +17,8 @@ export class AcessoVeiculo {
 
   @Column()
   saidaVeiculo: Date;
+
+  @ManyToMany(() => Veiculo, veiculo => veiculo.acessosVeiculo)
+  veiculos: Veiculo[];
 
 }
