@@ -4,12 +4,18 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Veiculo } from './veiculo.entity';
 import { VeiculoDTO } from './veiculo.dto';
+import { Apartamento } from 'src/apartamento/apartamento.entity';
+import { AcessoVeiculo } from 'src/acessos/acesso_veiculo/acessoveiculo.entity';
 
 @Injectable()
 export class VeiculoService {
   constructor(
     @InjectRepository(Veiculo)
     private veiculoRepository: Repository<Veiculo>,
+    @InjectRepository(Apartamento)
+    private apartamentoRepository: Repository<Apartamento>,
+    @InjectRepository(AcessoVeiculo)
+    private acessoveiculoRepository: Repository<AcessoVeiculo>,
   ) {}
 
   async findAll(): Promise<Veiculo[]> {
@@ -27,6 +33,9 @@ export class VeiculoService {
     veiculo.marca = veiculoDTO.marca;
     veiculo.modelo = veiculoDTO.modelo;
     veiculo.placa = veiculoDTO.placa;
+    veiculo.apartamento = await this.apartamentoRepository.findOne({
+      where: { idApartamento: veiculoDTO.apartamentoIdApartamento},
+    });
 
     return this.veiculoRepository.save(veiculo);
   }

@@ -6,8 +6,7 @@ import {
   Column,
   PrimaryGeneratedColumn,
   OneToMany,
-  ManyToOne,
-  JoinColumn,
+
 } from 'typeorm';
 
 @Entity()
@@ -26,9 +25,5 @@ export class Apartamento {
 
   @OneToMany(() => Pessoa, pessoa => pessoa.apartamento)
   pessoas: Pessoa[];
-
-  @ManyToOne(() => Pessoa, pessoa => pessoa.apartamentosProprietario)
-  @JoinColumn({ name: 'proprietarioId' })
-  proprietario: Pessoa;
 
 }

@@ -5,4 +5,5 @@ export class VeiculoDTO {
   marca: string;
   modelo: string
   placa: string;
+  apartamentoIdApartamento: number;
 }

@@ -6,8 +6,7 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToOne,
-  ManyToMany,
-  JoinTable,
+  OneToMany,
 } from 'typeorm';
 
 @Entity()
@@ -30,8 +29,7 @@ export class Veiculo {
   @ManyToOne(() => Apartamento, apartamento => apartamento.veiculos)
   apartamento: Apartamento;
 
-  @ManyToMany(() => AcessoVeiculo, acessoVeiculo => acessoVeiculo.veiculos)
-  @JoinTable()
+  @OneToMany(() => AcessoVeiculo, acessoVeiculo => acessoVeiculo.veiculo)
   acessosVeiculo: AcessoVeiculo[];
 
 }

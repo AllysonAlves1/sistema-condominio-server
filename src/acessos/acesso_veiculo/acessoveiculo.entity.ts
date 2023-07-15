@@ -4,7 +4,7 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  ManyToMany,
+  ManyToOne,
 } from 'typeorm';
 
 @Entity()
@@ -12,13 +12,13 @@ export class AcessoVeiculo {
   @PrimaryGeneratedColumn()
   idAcessoVeiculo: number;
 
-  @Column()
+  @Column({ default: null })
   entradaVeiculo: Date;
 
-  @Column()
+  @Column({ default: null })
   saidaVeiculo: Date;
 
-  @ManyToMany(() => Veiculo, veiculo => veiculo.acessosVeiculo)
-  veiculos: Veiculo[];
+  @ManyToOne(() => Veiculo, veiculo => veiculo.acessosVeiculo)
+  veiculo: Veiculo;
 
 }

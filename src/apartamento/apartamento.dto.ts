@@ -3,5 +3,4 @@ export class ApartamentoDTO {
   idApartamento: number;
   bloco: string;
   apartamento: string;
-  condominioId: number;
 }

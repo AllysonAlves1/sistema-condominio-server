@@ -2,6 +2,7 @@
 export class AcessoPessoaDTO {
     idAcessoPessoa: number;
     entradaPessoa: Date;
-    saidaPessoa: Date;  
+    saidaPessoa: Date;
+    pessoaIdPessoa: number;  
   }
   
