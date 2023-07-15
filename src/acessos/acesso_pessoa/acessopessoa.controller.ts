@@ -19,14 +19,19 @@ export class AcessoPessoaController {
     return this.acessopessoaService.findAll();
   }
 
+  @Get('countAcessoPessoa')
+  async CountAcessoToday() {
+    return this.acessopessoaService.countAcessoPessoa();
+  }
+
+  @Get('countAcessoSaida')
+  async CountSaidaToday() {
+    return this.acessopessoaService.countSaidaPessoa();
+  }
+
   @Get(':idAcessoPessoa')
   async findOne(@Param('idAcessoPessoa') idAcessoPessoa: number) {
     return this.acessopessoaService.findOne(idAcessoPessoa);
-  }
-
-  @Get('getAcessos')
-  async getAcessos() {
-    return this.acessopessoaService.getAcessos();
   }
 
   //salvar entrada de uma pessoa
