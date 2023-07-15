@@ -1,10 +1,10 @@
-/* eslint-disable prettier/prettier */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Pessoa } from './pessoa.entity';
 import { PessoaDTO } from './pessoa.dto';
 import { AcessoPessoa } from 'src/acessos/acesso_pessoa/acessopessoa.entity';
+import { Apartamento } from 'src/apartamento/apartamento.entity';
 
 @Injectable()
 export class PessoaService {
@@ -13,6 +13,8 @@ export class PessoaService {
     private pessoaRepository: Repository<Pessoa>,
     @InjectRepository(AcessoPessoa)
     private acessopessoaRepository: Repository<AcessoPessoa>,
+    @InjectRepository(Apartamento)
+    private apartamentoRepository: Repository<Apartamento>,
   ) {}
 
   async findAll(): Promise<Pessoa[]> {
@@ -21,9 +23,10 @@ export class PessoaService {
   }
 
   async getList(): Promise<Pessoa[]> {
-    const pessoas = await this.pessoaRepository.createQueryBuilder('pessoa')
+    const pessoas = await this.pessoaRepository
+      .createQueryBuilder('pessoa')
       .leftJoinAndSelect('pessoa.acessosPessoa', 'acesso_pessoa')
-      .getMany();
+      .getRawMany();
     return pessoas;
   }
 
@@ -59,7 +62,6 @@ export class PessoaService {
     return this.acessopessoaRepository.save(acessopessoa);
   }
 
-
   async findOne(idPessoa: number): Promise<Pessoa | undefined> {
     return this.pessoaRepository.findOne({ where: { idPessoa } });
   }
@@ -69,10 +71,13 @@ export class PessoaService {
     pessoa.nome = pessoaDTO.nome;
     pessoa.telefone = pessoaDTO.telefone;
     pessoa.cpf = pessoaDTO.cpf;
-    pessoa.telefone = pessoaDTO.telefone;
     pessoa.descricao = pessoaDTO.descricao;
     pessoa.proprietario = pessoaDTO.proprietario;
-
+    pessoa.apartamento = await this.apartamentoRepository.findOne({
+      where: {
+        idApartamento: pessoaDTO.apartamentoIdApartamento,
+      },
+    });
     return this.pessoaRepository.save(pessoa);
   }
 
@@ -102,5 +107,4 @@ export class PessoaService {
       throw new NotFoundException('Pessoa not found');
     }
   }
-
 }

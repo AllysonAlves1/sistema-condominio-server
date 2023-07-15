@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 export class PessoaDTO {
   idPessoa: number;
   nome: string;
@@ -6,4 +5,5 @@ export class PessoaDTO {
   telefone: string;
   descricao: string;
   proprietario: boolean;
+  apartamentoIdApartamento: number;
 }
