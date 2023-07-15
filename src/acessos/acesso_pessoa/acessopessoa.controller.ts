@@ -23,6 +23,11 @@ import {
       return this.acessopessoaService.findOne(idAcessoPessoa);
     }
 
+    @Get('getAcessos') 
+    async getAcessos() {
+      return this.acessopessoaService.getAcessos();
+    }
+
     //salvar entrada de uma pessoa
     @Post('entradapessoa')
     async entrada(): Promise<AcessoPessoa> {

@@ -17,6 +17,13 @@ export class PessoaService {
     return pessoas;
   }
 
+  async getList(): Promise<Pessoa[]> {
+    const pessoas = await this.pessoaRepository.createQueryBuilder('pessoa')
+      .leftJoinAndSelect('pessoa.acessosPessoa', 'acesso_pessoa')
+      .getMany();
+    return pessoas;
+  }
+
   async findOne(idPessoa: number): Promise<Pessoa | undefined> {
     return this.pessoaRepository.findOne({ where: { idPessoa } });
   }

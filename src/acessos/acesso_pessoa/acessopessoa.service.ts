@@ -31,6 +31,14 @@ export class AcessoPessoaService {
     return this.acessopessoaRepository.save(saidapessoa)
   }
 
+  async getAcessos(): Promise<number> {
+    const total = await this.acessopessoaRepository.createQueryBuilder('acesso_pessoa')
+      .where('entradaPessoa >= CURDATE()')
+      .getCount();
+    console.log(total)
+    return total;
+  }
+
   async remove(idAcessoPessoa: number): Promise<void> {
     await this.acessopessoaRepository.delete(idAcessoPessoa);
   }

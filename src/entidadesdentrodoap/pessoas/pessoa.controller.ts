@@ -20,6 +20,11 @@ export class PessoaController {
     return this.pessoaService.findAll();
   }
 
+  @Get('list')
+  async getList() {
+    return this.pessoaService.getList();
+  }
+
   @Get(':idPessoa')
   async findOne(@Param('idPessoa') idPessoa: number) {
     return this.pessoaService.findOne(idPessoa);
