@@ -5,6 +5,7 @@ import {
   Column,
   PrimaryGeneratedColumn,
   ManyToMany,
+  ManyToOne,
 } from 'typeorm';
 
 @Entity()
@@ -17,6 +18,9 @@ export class AcessoPessoa {
 
   @Column({ default: null })
   saidaPessoa: Date;
+
+  @ManyToOne(() => Pessoa)
+  pessoa: Pessoa;
 
   @ManyToMany(() => Pessoa, pessoa => pessoa.acessosPessoa)
   pessoas: Pessoa[];

@@ -4,12 +4,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Pessoa } from './pessoa.entity';
 import { PessoaDTO } from './pessoa.dto';
+import { AcessoPessoa } from 'src/acessos/acesso_pessoa/acessopessoa.entity';
 
 @Injectable()
 export class PessoaService {
   constructor(
     @InjectRepository(Pessoa)
     private pessoaRepository: Repository<Pessoa>,
+    @InjectRepository(AcessoPessoa)
+    private acessopessoaRepository: Repository<AcessoPessoa>,
   ) {}
 
   async findAll(): Promise<Pessoa[]> {
@@ -23,6 +26,39 @@ export class PessoaService {
       .getMany();
     return pessoas;
   }
+
+  async registrarEntradaPessoa(idPessoa: number): Promise<AcessoPessoa> {
+    const pessoa = await this.pessoaRepository.findOne({
+      where: { idPessoa },
+    });
+
+    if (!pessoa) {
+      throw new NotFoundException('Pessoa not found');
+    }
+
+    const acessopessoa = new AcessoPessoa();
+    acessopessoa.pessoa = pessoa;
+    acessopessoa.entradaPessoa = new Date();
+
+    return this.acessopessoaRepository.save(acessopessoa);
+  }
+
+  async registrarSaidaPessoa(idPessoa: number): Promise<AcessoPessoa> {
+    const pessoa = await this.pessoaRepository.findOne({
+      where: { idPessoa },
+    });
+
+    if (!pessoa) {
+      throw new NotFoundException('Pessoa not found');
+    }
+
+    const acessopessoa = new AcessoPessoa();
+    acessopessoa.pessoa = pessoa;
+    acessopessoa.saidaPessoa = new Date();
+
+    return this.acessopessoaRepository.save(acessopessoa);
+  }
+
 
   async findOne(idPessoa: number): Promise<Pessoa | undefined> {
     return this.pessoaRepository.findOne({ where: { idPessoa } });
