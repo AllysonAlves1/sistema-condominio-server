@@ -29,6 +29,11 @@ export class AcessoPessoaController {
     return this.acessopessoaService.countSaidaPessoa();
   }
 
+  @Get('countAcessoVisitantes')
+  async countAcessoVisitantes() {
+    return this.acessopessoaService.countAcessoVisitantes();
+  }
+
   @Get(':idAcessoPessoa')
   async findOne(@Param('idAcessoPessoa') idAcessoPessoa: number) {
     return this.acessopessoaService.findOne(idAcessoPessoa);

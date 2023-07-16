@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Between, LessThanOrEqual, MoreThanOrEqual, Repository } from 'typeorm';
+import { Between, Repository } from 'typeorm';
 import { AcessoPessoa } from './acessopessoa.entity';
 import { Pessoa } from 'src/entidadesdentrodoap/pessoas/pessoa.entity';
 import { AcessoPessoaDTO } from './acessopessoa.dto';
@@ -41,6 +41,25 @@ export class AcessoPessoaService {
       }
     })
     return totalSaidas;
+  }
+
+  async countAcessoVisitantes(): Promise<number> {
+
+    const today = new Date();
+
+    const PessoasVisitantes = await this.pessoaRepository.find({
+       where: { descricao:'Visitante' },
+     });
+     
+    const visitantesEntradas = this.acessopessoaRepository.count({
+      where: {
+        entradaPessoa: Between(new Date(today.getFullYear(), today.getMonth(), today.getDate()), new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1)),
+        saidaPessoa: null,
+        pessoa: PessoasVisitantes,
+      }
+    })
+
+    return visitantesEntradas;
   }
 
   async findOne(idAcessoPessoa: number): Promise<AcessoPessoa | null> {

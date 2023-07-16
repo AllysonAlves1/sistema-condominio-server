@@ -15,18 +15,17 @@ export class PessoaService {
     private acessopessoaRepository: Repository<AcessoPessoa>,
     @InjectRepository(Apartamento)
     private apartamentoRepository: Repository<Apartamento>,
-  ) { }
+  ) {}
 
   async findAll(): Promise<Pessoa[]> {
     const pessoas = await this.pessoaRepository.find();
     return pessoas;
   }
 
-  async getList(): Promise<Number> {
-    const pessoas = await this.pessoaRepository
-      .createQueryBuilder('pessoa')
-      .leftJoinAndSelect('pessoa.acessosPessoa', 'acesso_pessoa')
-      .getCount()
+  async getList(): Promise<Pessoa[]> {
+    const pessoas = await this.pessoaRepository.find({
+      relations: ['acessosPessoa', 'apartamento'],
+    });
     return pessoas;
   }
 
