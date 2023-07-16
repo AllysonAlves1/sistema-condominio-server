@@ -35,16 +35,6 @@ export class PessoaController {
     return this.pessoaService.create(pessoaDTO);
   }
 
-  @Post('registrarEntrada')
-  async registrarEntradaPessoa(@Body('idPessoa') idPessoa: number) {
-    return this.pessoaService.registrarEntradaPessoa(idPessoa);
-  }
-
-  @Post('registrarSaida')
-  async registrarSaidaPessoa(@Body('idPessoa') idPessoa: number) {
-    return this.pessoaService.registrarSaidaPessoa(idPessoa);
-  }
-
   @Put(':idPessoa')
   async update(@Param('idPessoa') idPessoa: number, @Body() pessoaDTO: PessoaDTO) {
     return this.pessoaService.update(idPessoa, pessoaDTO);

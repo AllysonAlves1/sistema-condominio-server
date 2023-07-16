@@ -50,16 +50,24 @@ export class AcessoPessoaService {
     const PessoasVisitantes = await this.pessoaRepository.find({
        where: { descricao:'Visitante' },
      });
-     
-    const visitantesEntradas = this.acessopessoaRepository.count({
-      where: {
-        entradaPessoa: Between(new Date(today.getFullYear(), today.getMonth(), today.getDate()), new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1)),
-        saidaPessoa: null,
-        pessoa: PessoasVisitantes,
-      }
-    })
 
-    return visitantesEntradas;
+     if(PessoasVisitantes.length == 0) {
+
+        return 0
+
+     } else {
+
+       const visitantesEntradas = this.acessopessoaRepository.count({
+         where: {
+           entradaPessoa: Between(new Date(today.getFullYear(), today.getMonth(), today.getDate()), new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1)),
+           saidaPessoa: null,
+           pessoa: PessoasVisitantes,
+         }
+       })
+   
+       return visitantesEntradas;
+     }
+     
   }
 
   async findOne(idAcessoPessoa: number): Promise<AcessoPessoa | null> {

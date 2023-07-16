@@ -29,38 +29,6 @@ export class PessoaService {
     return pessoas;
   }
 
-  async registrarEntradaPessoa(idPessoa: number): Promise<AcessoPessoa> {
-    const pessoa = await this.pessoaRepository.findOne({
-      where: { idPessoa },
-    });
-
-    if (!pessoa) {
-      throw new NotFoundException('Pessoa not found');
-    }
-
-    const acessopessoa = new AcessoPessoa();
-    acessopessoa.pessoa = pessoa;
-    acessopessoa.entradaPessoa = new Date();
-
-    return this.acessopessoaRepository.save(acessopessoa);
-  }
-
-  async registrarSaidaPessoa(idPessoa: number): Promise<AcessoPessoa> {
-    const pessoa = await this.pessoaRepository.findOne({
-      where: { idPessoa },
-    });
-
-    if (!pessoa) {
-      throw new NotFoundException('Pessoa not found');
-    }
-
-    const acessopessoa = new AcessoPessoa();
-    acessopessoa.pessoa = pessoa;
-    acessopessoa.saidaPessoa = new Date();
-
-    return this.acessopessoaRepository.save(acessopessoa);
-  }
-
   async findOne(idPessoa: number): Promise<Pessoa | undefined> {
     return this.pessoaRepository.findOne({ where: { idPessoa } });
   }
