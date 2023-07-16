@@ -50,6 +50,16 @@ export class PessoaController {
     return this.pessoaService.update(idPessoa, pessoaDTO);
   }
 
+  @Put('entrada/:idPessoa')
+  async updateEntrada(@Param('idPessoa') idPessoa: number) {
+    return this.pessoaService.updateEntrada(idPessoa);
+  }
+
+  @Put('saida/:idPessoa')
+  async updateSaida(@Param('idPessoa') idPessoa: number) {
+    return this.pessoaService.updateSaida(idPessoa);
+  }
+
   @Delete(':idPessoa')
   async remove(@Param('idPessoa') idPessoa: number) {
     return this.pessoaService.remove(idPessoa);

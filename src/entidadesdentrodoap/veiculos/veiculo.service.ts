@@ -25,7 +25,7 @@ export class VeiculoService {
 
   async getCarrosList(): Promise<Veiculo[]> {
     const veiculos = await this.veiculoRepository.find({
-      relations: ['acessosVeiculo', 'apartamento'],
+      relations: ['apartamento'],
     });
     return veiculos;
   }
@@ -64,6 +64,32 @@ export class VeiculoService {
 
   async findOne(idVeiculo: number): Promise<Veiculo | undefined> {
     return this.veiculoRepository.findOne({ where: { idVeiculo } });
+  }
+
+  async updateEntrada(idVeiculo: number): Promise<Veiculo> {
+    const veiculo = await this.veiculoRepository.findOne({
+      where: { idVeiculo },
+    });
+    if (!veiculo) {
+      // Lançar um erro ou retornar null/undefined caso o residente não exista
+    }
+
+    veiculo.entrada = new Date(); // Define a data e hora atual para o acesso
+
+    return this.veiculoRepository.save(veiculo);
+  }
+
+  async updateSaida(idVeiculo: number): Promise<Veiculo> {
+    const veiculo = await this.veiculoRepository.findOne({
+      where: { idVeiculo },
+    });
+    if (!veiculo) {
+      // Lançar um erro ou retornar null/undefined caso o residente não exista
+    }
+
+    veiculo.saida = new Date(); // Define a data e hora atual para a saída
+
+    return this.veiculoRepository.save(veiculo);
   }
 
   async create(veiculoDTO: VeiculoDTO): Promise<Veiculo> {

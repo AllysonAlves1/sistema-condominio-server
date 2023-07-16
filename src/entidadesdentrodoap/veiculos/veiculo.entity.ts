@@ -26,6 +26,12 @@ export class Veiculo {
   @Column()
   placa: string;
 
+  @Column({ default: null })
+  entrada: Date;
+
+  @Column({ default: null })
+  saida: Date;
+
   @ManyToOne(() => Apartamento, apartamento => apartamento.veiculos)
   apartamento: Apartamento;
 

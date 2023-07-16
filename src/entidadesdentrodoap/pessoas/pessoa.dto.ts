@@ -6,4 +6,6 @@ export class PessoaDTO {
   descricao: string;
   proprietario: boolean;
   apartamentoIdApartamento: number;
+  entrada: Date;
+  saida: Date;
 }

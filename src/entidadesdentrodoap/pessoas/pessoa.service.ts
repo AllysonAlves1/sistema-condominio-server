@@ -24,7 +24,7 @@ export class PessoaService {
 
   async getList(): Promise<Pessoa[]> {
     const pessoas = await this.pessoaRepository.find({
-      relations: ['acessosPessoa', 'apartamento'],
+      relations: ['apartamento'],
     });
     return pessoas;
   }
@@ -105,5 +105,31 @@ export class PessoaService {
     if (deleteResult.affected === 0) {
       throw new NotFoundException('Pessoa not found');
     }
+  }
+
+  async updateEntrada(idPessoa: number): Promise<Pessoa> {
+    const pessoa = await this.pessoaRepository.findOne({
+      where: { idPessoa },
+    });
+    if (!pessoa) {
+      // Lançar um erro ou retornar null/undefined caso o residente não exista
+    }
+
+    pessoa.entrada = new Date(); // Define a data e hora atual para o acesso
+
+    return this.pessoaRepository.save(pessoa);
+  }
+
+  async updateSaida(idPessoa: number): Promise<Pessoa> {
+    const pessoa = await this.pessoaRepository.findOne({
+      where: { idPessoa },
+    });
+    if (!pessoa) {
+      // Lançar um erro ou retornar null/undefined caso o residente não exista
+    }
+
+    pessoa.saida = new Date(); // Define a data e hora atual para a saída
+
+    return this.pessoaRepository.save(pessoa);
   }
 }

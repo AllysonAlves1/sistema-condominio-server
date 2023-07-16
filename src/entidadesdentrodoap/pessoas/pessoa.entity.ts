@@ -28,6 +28,12 @@ export class Pessoa {
   @Column()
   proprietario: boolean;
 
+  @Column({ default: null })
+  entrada: Date;
+
+  @Column({ default: null })
+  saida: Date;
+
   @ManyToOne(() => Apartamento, (apartamento) => apartamento.pessoas)
   apartamento: Apartamento;
 

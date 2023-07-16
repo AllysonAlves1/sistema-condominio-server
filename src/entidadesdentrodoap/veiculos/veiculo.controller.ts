@@ -50,6 +50,16 @@ export class VeiculoController {
     return this.veiculoService.update(idVeiculo, veiculoDTO);
   }
 
+  @Put('entrada/:idVeiculo')
+  async updateEntrada(@Param('idVeiculo') idVeiculo: number) {
+    return this.veiculoService.updateEntrada(idVeiculo);
+  }
+
+  @Put('saida/:idVeiculo')
+  async updateSaida(@Param('idVeiculo') idVeiculo: number) {
+    return this.veiculoService.updateSaida(idVeiculo);
+  }
+
   @Delete(':idVeiculo')
   async remove(@Param('idVeiculo') idVeiculo: number) {
     return this.veiculoService.remove(idVeiculo);
