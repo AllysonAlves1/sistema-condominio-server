@@ -19,7 +19,7 @@ export class AcessoPessoaController {
     return this.acessopessoaService.findAll();
   }
 
-  @Get('countAcessoPessoa')
+  @Get('countAcessoEntrada')
   async CountAcessoToday() {
     return this.acessopessoaService.countAcessoPessoa();
   }
