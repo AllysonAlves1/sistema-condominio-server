@@ -20,7 +20,7 @@ export class VeiculoController {
     return this.veiculoService.findAll();
   }
 
-  @Get(':idVeiculo')
+  @Get('id/:idVeiculo')
   async findOne(@Param('idVeiculo') idVeiculo: number) {
     return this.veiculoService.findOne(idVeiculo);
   }

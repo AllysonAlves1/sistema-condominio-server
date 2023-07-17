@@ -19,9 +19,19 @@ import { AcessoVeiculoDTO } from './acessoveiculo.dto';
     return this.acessoveiculoService.findAll();
   }
   
-  @Get(':idAcessoVeiculo')
+  @Get('id/:idAcessoVeiculo')
   async findOne(@Param('idAcessoVeiculo') idAcessoVeiculo: number) {
     return this.acessoveiculoService.findOne(idAcessoVeiculo);
+  }
+
+  @Get('countAcessoEntrada')
+  async CountAcessoToday() {
+    return this.acessoveiculoService.countAcessoVeiculo();
+  }
+
+  @Get('countAcessoSaida')
+  async CountSaidaToday() {
+    return this.acessoveiculoService.countSaidaVeiculo();
   }
 
     //salvar entrada de um veiculo

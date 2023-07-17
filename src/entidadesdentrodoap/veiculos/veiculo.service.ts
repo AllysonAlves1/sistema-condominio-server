@@ -25,7 +25,7 @@ export class VeiculoService {
 
   async getCarrosList(): Promise<Veiculo[]> {
     const veiculos = await this.veiculoRepository.find({
-      relations: ['apartamento'],
+      relations: ['apartamento']
     });
     return veiculos;
   }
