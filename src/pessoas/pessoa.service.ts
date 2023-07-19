@@ -56,13 +56,9 @@ export class PessoaService {
     if (!pessoa) {
       throw new NotFoundException('Pessoa not found');
     }
-
     pessoa.nome = pessoaDTO.nome;
     pessoa.telefone = pessoaDTO.telefone;
     pessoa.cpf = pessoaDTO.cpf;
-    pessoa.telefone = pessoaDTO.telefone;
-    pessoa.descricao = pessoaDTO.descricao;
-    pessoa.proprietario = pessoaDTO.proprietario;
 
     return this.pessoaRepository.save(pessoa);
   }

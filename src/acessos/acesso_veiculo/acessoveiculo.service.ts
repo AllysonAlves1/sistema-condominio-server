@@ -1,9 +1,8 @@
-/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Between, Repository } from 'typeorm';
 import { AcessoVeiculo } from './acessoveiculo.entity';
-import { Veiculo } from 'src/entidadesdentrodoap/veiculos/veiculo.entity';
+import { Veiculo } from 'src/veiculos/veiculo.entity';
 import { AcessoVeiculoDTO } from './acessoveiculo.dto';
 
 @Injectable()
@@ -28,10 +27,13 @@ export class AcessoVeiculoService {
 
     const totalEntradas = this.acessoveiculoRepository.count({
       where: {
-        entradaVeiculo: Between(new Date(today.getFullYear(), today.getMonth(), today.getDate()), new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1)),
+        entradaVeiculo: Between(
+          new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+          new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1),
+        ),
         saidaVeiculo: null,
-      }
-    })
+      },
+    });
     return totalEntradas;
   }
 
@@ -41,36 +43,36 @@ export class AcessoVeiculoService {
     const totalSaidas = this.acessoveiculoRepository.count({
       where: {
         entradaVeiculo: null,
-        saidaVeiculo: Between(new Date(today.getFullYear(), today.getMonth(), today.getDate()), new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1)),
-      }
-    })
+        saidaVeiculo: Between(
+          new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+          new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1),
+        ),
+      },
+    });
     return totalSaidas;
   }
 
-  async entrada(acessoveiculoDTO: AcessoVeiculoDTO): Promise<AcessoVeiculo>{
+  async entrada(acessoveiculoDTO: AcessoVeiculoDTO): Promise<AcessoVeiculo> {
     const entradaveiculo = new AcessoVeiculo();
     entradaveiculo.veiculo = await this.veiculoRepository.findOne({
       where: { idVeiculo: acessoveiculoDTO.veiculoIdVeiculo },
     });
-    entradaveiculo.entradaVeiculo = new Date()
-    
-    
-    return this.acessoveiculoRepository.save(entradaveiculo)
+    entradaveiculo.entradaVeiculo = new Date();
+
+    return this.acessoveiculoRepository.save(entradaveiculo);
   }
 
-  async saida(acessoveiculoDTO: AcessoVeiculoDTO): Promise<AcessoVeiculo>{
+  async saida(acessoveiculoDTO: AcessoVeiculoDTO): Promise<AcessoVeiculo> {
     const saidaveiculo = new AcessoVeiculo();
     saidaveiculo.veiculo = await this.veiculoRepository.findOne({
       where: { idVeiculo: acessoveiculoDTO.veiculoIdVeiculo },
     });
-    saidaveiculo.saidaVeiculo = new Date()
-    
-    
-    return this.acessoveiculoRepository.save(saidaveiculo)
+    saidaveiculo.saidaVeiculo = new Date();
+
+    return this.acessoveiculoRepository.save(saidaveiculo);
   }
 
   async remove(idAcessoveiculo: number): Promise<void> {
     await this.acessoveiculoRepository.delete(idAcessoveiculo);
   }
-
 }

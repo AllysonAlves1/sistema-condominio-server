@@ -1,11 +1,5 @@
-/* eslint-disable prettier/prettier */
-import { Pessoa } from 'src/entidadesdentrodoap/pessoas/pessoa.entity';
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  ManyToOne,
-} from 'typeorm';
+import { Pessoa } from 'src/pessoas/pessoa.entity';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 @Entity()
 export class AcessoPessoa {
@@ -18,7 +12,6 @@ export class AcessoPessoa {
   @Column({ default: null })
   saidaPessoa: Date;
 
-  @ManyToOne(() => Pessoa, pessoa => pessoa.acessosPessoa)
+  @ManyToOne(() => Pessoa, (pessoa) => pessoa.acessosPessoa)
   pessoa: Pessoa;
-
 }

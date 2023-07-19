@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { PessoaModule } from './entidadesdentrodoap/pessoas/pessoa.module';
+import { PessoaModule } from './pessoas/pessoa.module';
 import { ApartamentoModule } from './apartamento/apartamento.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './usuarios/auth/jwt.strategy';
@@ -13,7 +13,7 @@ import { UsuarioModule } from './usuarios/usuario.module';
 import { UsuarioService } from './usuarios/usuario.service';
 import { AcessoPessoaModule } from './acessos/acesso_pessoa/acessopessoa.module';
 import { AcessoVeiculoModule } from './acessos/acesso_veiculo/acessoveiculo.module';
-import { VeiculoModule } from './entidadesdentrodoap/veiculos/veiculo.module';
+import { VeiculoModule } from './veiculos/veiculo.module';
 import { DatabaseConfigService } from './config/database.config';
 
 @Module({

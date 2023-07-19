@@ -1,9 +1,8 @@
-/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Between, Repository } from 'typeorm';
 import { AcessoPessoa } from './acessopessoa.entity';
-import { Pessoa } from 'src/entidadesdentrodoap/pessoas/pessoa.entity';
+import { Pessoa } from 'src/pessoas/pessoa.entity';
 import { AcessoPessoaDTO } from './acessopessoa.dto';
 
 @Injectable()
@@ -13,7 +12,7 @@ export class AcessoPessoaService {
     private acessopessoaRepository: Repository<AcessoPessoa>,
     @InjectRepository(Pessoa)
     private pessoaRepository: Repository<Pessoa>,
-  ) { }
+  ) {}
 
   async findAll(): Promise<AcessoPessoa[]> {
     return this.acessopessoaRepository.find();
@@ -24,10 +23,13 @@ export class AcessoPessoaService {
 
     const totalEntradas = this.acessopessoaRepository.count({
       where: {
-        entradaPessoa: Between(new Date(today.getFullYear(), today.getMonth(), today.getDate()), new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1)),
+        entradaPessoa: Between(
+          new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+          new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1),
+        ),
         saidaPessoa: null,
-      }
-    })
+      },
+    });
     return totalEntradas;
   }
 
@@ -37,37 +39,42 @@ export class AcessoPessoaService {
     const totalSaidas = this.acessopessoaRepository.count({
       where: {
         entradaPessoa: null,
-        saidaPessoa: Between(new Date(today.getFullYear(), today.getMonth(), today.getDate()), new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1)),
-      }
-    })
+        saidaPessoa: Between(
+          new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+          new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1),
+        ),
+      },
+    });
     return totalSaidas;
   }
 
   async countAcessoVisitantes(): Promise<number> {
-
     const today = new Date();
 
     const PessoasVisitantes = await this.pessoaRepository.find({
-       where: { descricao:'Visitante' },
-     });
+      where: { descricao: 'Visitante' },
+    });
 
-     if(PessoasVisitantes.length == 0) {
+    if (PessoasVisitantes.length == 0) {
+      return 0;
+    } else {
+      const visitantesEntradas = this.acessopessoaRepository.count({
+        where: {
+          entradaPessoa: Between(
+            new Date(today.getFullYear(), today.getMonth(), today.getDate()),
+            new Date(
+              today.getFullYear(),
+              today.getMonth(),
+              today.getDate() + 1,
+            ),
+          ),
+          saidaPessoa: null,
+          pessoa: PessoasVisitantes,
+        },
+      });
 
-        return 0
-
-     } else {
-
-       const visitantesEntradas = this.acessopessoaRepository.count({
-         where: {
-           entradaPessoa: Between(new Date(today.getFullYear(), today.getMonth(), today.getDate()), new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1)),
-           saidaPessoa: null,
-           pessoa: PessoasVisitantes,
-         }
-       })
-   
-       return visitantesEntradas;
-     }
-     
+      return visitantesEntradas;
+    }
   }
 
   async findOne(idAcessoPessoa: number): Promise<AcessoPessoa | null> {
@@ -79,10 +86,9 @@ export class AcessoPessoaService {
     entradapessoa.pessoa = await this.pessoaRepository.findOne({
       where: { idPessoa: acessopessoaDTO.pessoaIdPessoa },
     });
-    entradapessoa.entradaPessoa = new Date()
+    entradapessoa.entradaPessoa = new Date();
 
-
-    return this.acessopessoaRepository.save(entradapessoa)
+    return this.acessopessoaRepository.save(entradapessoa);
   }
 
   async saida(acessopessoaDTO: AcessoPessoaDTO): Promise<AcessoPessoa> {
@@ -90,14 +96,12 @@ export class AcessoPessoaService {
     saidapessoa.pessoa = await this.pessoaRepository.findOne({
       where: { idPessoa: acessopessoaDTO.pessoaIdPessoa },
     });
-    saidapessoa.saidaPessoa = new Date()
+    saidapessoa.saidaPessoa = new Date();
 
-
-    return this.acessopessoaRepository.save(saidapessoa)
+    return this.acessopessoaRepository.save(saidapessoa);
   }
 
   async remove(idAcessoPessoa: number): Promise<void> {
     await this.acessopessoaRepository.delete(idAcessoPessoa);
   }
-
 }

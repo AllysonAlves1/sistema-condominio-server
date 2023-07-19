@@ -1,18 +1,10 @@
-/* eslint-disable prettier/prettier */
-import {
-  Controller,
-  Get,
-  Post,
-  Param,
-  Delete,
-  Body,
-} from '@nestjs/common';
+import { Controller, Get, Post, Param, Delete, Body } from '@nestjs/common';
 import { AcessoPessoaService } from './acessopessoa.service';
 import { AcessoPessoaDTO } from './acessopessoa.dto';
 
 @Controller('acessopessoa')
 export class AcessoPessoaController {
-  constructor(private acessopessoaService: AcessoPessoaService) { }
+  constructor(private acessopessoaService: AcessoPessoaService) {}
 
   @Get()
   async findAll() {

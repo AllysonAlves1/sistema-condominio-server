@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { Pessoa } from 'src/entidadesdentrodoap/pessoas/pessoa.entity';
-import { Veiculo } from 'src/entidadesdentrodoap/veiculos/veiculo.entity';
+import { Pessoa } from 'src/pessoas/pessoa.entity';
+import { Veiculo } from 'src/veiculos/veiculo.entity';
 import {
   Entity,
   Column,
