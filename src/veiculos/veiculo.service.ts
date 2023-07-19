@@ -114,7 +114,6 @@ export class VeiculoService {
       throw new NotFoundException('Veiculo not found');
     }
 
-    veiculo.tipo = veiculoDTO.tipo;
     veiculo.marca = veiculoDTO.marca;
     veiculo.modelo = veiculoDTO.modelo;
     veiculo.placa = veiculoDTO.placa;
