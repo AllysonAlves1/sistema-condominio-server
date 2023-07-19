@@ -1,5 +1,3 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOneOptions, Repository } from 'typeorm';
@@ -12,8 +10,8 @@ export class UsuarioService {
   constructor(
     @InjectRepository(Usuario)
     private usuarioRepository: Repository<Usuario>,
-    private jwtService: JwtService
-  ) { }
+    private jwtService: JwtService,
+  ) {}
 
   async findAll(): Promise<Usuario[]> {
     const usuario = await this.usuarioRepository.find();
@@ -30,7 +28,7 @@ export class UsuarioService {
   }
 
   async findOneByEmail(email: string): Promise<Usuario | undefined> {
-    return this.usuarioRepository.findOneBy({ email })
+    return this.usuarioRepository.findOneBy({ email });
   }
 
   async create(usuarioDTO: UsuarioDTO): Promise<Usuario> {
@@ -52,7 +50,6 @@ export class UsuarioService {
       throw new NotFoundException('Usuário não encontrado');
     }
 
-    usuario.idUsuario = usuarioDTO.idUsuario;
     usuario.nome = usuarioDTO.nome;
     usuario.email = usuarioDTO.email;
     usuario.senha = usuarioDTO.senha;
@@ -84,6 +81,7 @@ export class UsuarioService {
     const payload = { email: user.email, idUsuario: user.idUsuario };
     return {
       access_token: this.jwtService.sign(payload),
+      id: user.idUsuario,
     };
   }
 }
